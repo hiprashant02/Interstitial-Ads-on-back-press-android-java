@@ -1,0 +1,55 @@
+public class MainActivity extends AppCompatActivity {
+
+    private InterstitialAd interstitialAd;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+    
+    private void loadInterstitialAd() {
+        FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
+        
+            @Override
+            public void onAdDismissedFullScreenContent() {
+                super.onBackPressed();
+            }
+            
+           @Override
+           public void onAdShowedFullScreenContent() {
+              // Called when fullscreen content is shown.
+              // Make sure to set your reference to null so you don't
+              // show it a second time.
+              mInterstitialAd = null
+           }
+           
+        };
+        InterstitialAd.load(
+                this,
+                "adunit_id",
+                new AdRequest.Builder().build(),
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd ad) {
+                        interstitialAd = ad;
+                        interstitialAd.setFullScreenContentCallback(fullScreenContentCallback);
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                        // Code to be executed when an ad request fails.
+                    }
+                });
+    }
+    
+    @Override
+    public void onBackPressed() {
+        if (interstitialAd!=null) {
+            interstitialAd.show(MainActivity.this);
+        }    
+        else{
+            super.onBackPressed();  
+        }
+    }
+}
