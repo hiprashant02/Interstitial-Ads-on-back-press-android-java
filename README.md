@@ -1,6 +1,6 @@
 # Express Coffee Machine ☕️
 
-A simple REST API built with Express.js for managing coffees. You can add, view, update, and delete coffee items — just like operating a digital coffee machine! 🚀
+A simple REST API built with Express.js for managing coffees. You can add, view, update, and delete coffee items just like operating a digital coffee machine! 🚀
 
 ---
 
